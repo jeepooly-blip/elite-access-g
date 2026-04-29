@@ -1,0 +1,24 @@
+{
+  "entities": {
+    "Request": {
+      "title": "Concierge Request",
+      "description": "A luxury concierge service request from a client.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Client full name" },
+        "email": { "type": "string", "format": "email", "description": "Client email address" },
+        "phone": { "type": "string", "description": "Client phone number" },
+        "service": { "type": "string", "description": "Event or service of interest" },
+        "message": { "type": "string", "description": "Specific requirements" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Submission timestamp" }
+      },
+      "required": ["name", "email", "service"]
+    }
+  },
+  "firestore": {
+    "requests/{requestId}": {
+      "schema": "Request",
+      "description": "Collection of concierge requests."
+    }
+  }
+}

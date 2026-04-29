@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #C6A85C;
+  --color-gold-hover: #D7BC7B;
+  --color-gold-muted: rgba(198, 168, 92, 0.1);
+  --color-gold-light: #E5D5B0;
+  --color-black: #0B0B0B;
+  --color-black-light: #121212;
+  --color-black-deep: #050505;
+  --color-zinc-gray: #A1A1AA;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-serif-alt: "Cormorant Garamond", serif;
+}
+
+body {
+  @apply bg-black text-white font-sans antialiased selection:bg-gold selection:text-black;
+  font-weight: 200;
+}
+
+.font-thin-caps {
+  @apply uppercase font-sans;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  font-size: 0.75rem;
+}
+
+.luxury-text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #C6A85C 0%, #8E793E 100%);
+}
+
+.luxury-card {
+  @apply bg-[#0D0D0D]/80 backdrop-blur-xl rounded-sm p-0 transition-all duration-700 overflow-hidden;
+  border: 1px solid rgba(198, 168, 92, 0.08);
+}
+
+.luxury-card:hover {
+  @apply border-gold/40 -translate-y-1;
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.8), 0 20px 40px -20px rgba(198, 168, 92, 0.15);
+}
+
+.btn-gold {
+  @apply bg-gold text-black px-12 py-5 font-bold tracking-[0.3em] uppercase text-[10px] hover:bg-gold-hover transition-all duration-500 shadow-xl shadow-gold/5 flex items-center justify-center gap-3;
+}
+
+.btn-outline {
+  @apply border border-gold/30 px-12 py-5 font-bold tracking-[0.3em] uppercase text-[10px] hover:bg-gold/10 text-gold transition-all duration-500 flex items-center justify-center gap-3;
+}
+
+.section-title {
+  @apply text-white font-serif italic text-4xl md:text-5xl lg:text-6xl tracking-tight mb-6;
+}
+
+.section-tag {
+  @apply text-gold font-sans text-[10px] uppercase tracking-[0.5em] mb-4 block opacity-80;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black-deep;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gold/20 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gold/40;
+}
