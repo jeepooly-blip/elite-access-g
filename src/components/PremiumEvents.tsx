@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Calendar, MapPin, ChevronRight, X, Clock, ShieldCheck, Star, Users } from 'lucide-react';
+import { Calendar, MapPin, ChevronRight, X, Clock, ShieldCheck, Star, Users, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useWishlist } from '../lib/WishlistContext';
 
 const EVENTS = [
   {
@@ -109,6 +110,7 @@ const EVENTS = [
 export default function PremiumEvents() {
   const [activeFilter, setActiveFilter] = useState('ALL');
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const { toggleWishlist, isInWishlist } = useWishlist();
 
   // Lock scroll when modal is open
   useEffect(() => {
@@ -178,13 +180,32 @@ export default function PremiumEvents() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
                   
-                  {event.featured && (
-                    <div className="absolute top-4 left-4">
+                  {/* Top Bar Actions */}
+                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                    {event.featured ? (
                       <span className="bg-gold text-black text-[9px] font-bold tracking-[0.2em] px-3 py-1 uppercase">
                         Featured
                       </span>
-                    </div>
-                  )}
+                    ) : (
+                      <div />
+                    )}
+                    
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleWishlist(event);
+                      }}
+                      className="p-2.5 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-white hover:text-gold transition-all duration-300 group/heart"
+                    >
+                      <Heart 
+                        className={`w-4 h-4 transition-all duration-300 ${
+                          isInWishlist(event.title) 
+                            ? 'fill-gold text-gold scale-110' 
+                            : 'group-hover/heart:scale-110'
+                        }`} 
+                      />
+                    </button>
+                  </div>
                   
                   <div className="absolute bottom-6 left-6 right-6">
                     <span className="text-gold font-thin-caps mb-3 block">
