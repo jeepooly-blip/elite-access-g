@@ -21,21 +21,17 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock scroll when wishlist is open
+  // Lock scroll when any overlay is open
   useEffect(() => {
-    if (wishlistOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [wishlistOpen]);
+    const anyOpen = wishlistOpen || mobileMenuOpen;
+    document.body.style.overflow = anyOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [wishlistOpen, mobileMenuOpen]);
 
   const navLinks = [
     { name: 'Expertise', href: '#expertise' },
@@ -46,62 +42,81 @@ export default function Navbar() {
 
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-4 md:px-10 py-6 ${
-          scrolled ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-transparent'
+      {/* ── NAV BAR ─────────────────────────────────────────────────────────── */}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-4 md:px-10 ${
+          scrolled ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-black/30 backdrop-blur-sm py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center gap-3 group cursor-pointer">
+        {/*
+          KEY FIX 1 — use a 3-column grid so the logo is pinned left,
+          nav links are centred, and the actions are pinned right.
+          This prevents the logo text from ever crashing into the nav links
+          regardless of viewport width.
+        */}
+        <div className="max-w-7xl mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-6">
+
+          {/* Logo — left column */}
+          <div className="flex items-center gap-3 group cursor-pointer shrink-0">
             <div className="w-10 h-10 bg-gradient-to-br from-gold to-[#8E793E] rounded-sm rotate-45 flex items-center justify-center shadow-lg shadow-gold/10 group-hover:shadow-gold/20 transition-all duration-500">
               <span className="text-black font-bold -rotate-45 text-sm tracking-tighter">V</span>
             </div>
-            <span className="text-2xl font-serif tracking-[0.3em] text-white uppercase group-hover:text-gold transition-colors">
+            <span className="text-2xl font-serif tracking-[0.3em] text-white uppercase group-hover:text-gold transition-colors whitespace-nowrap">
               VELOCE
             </span>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-12">
+          {/* Desktop nav links — centre column */}
+          <div className="hidden lg:flex items-center justify-center gap-10">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
+              <a
+                key={link.name}
                 href={link.href}
-                className="font-thin-caps text-white hover:text-gold transition-colors font-medium"
+                className="font-thin-caps text-white hover:text-gold transition-colors font-medium whitespace-nowrap"
               >
                 {link.name}
               </a>
             ))}
-            
-            <div className="h-4 w-px bg-white/20 mx-2" />
-            
-            <div className="flex items-center gap-6">
-              {/* Wishlist Trigger */}
-              <button 
-                onClick={() => user ? setWishlistOpen(true) : setAuthModalOpen(true)}
-                className="relative text-white hover:text-gold transition-colors group"
-              >
-                <Heart className={`w-5 h-5 ${wishlist.length > 0 ? 'fill-gold text-gold scale-110' : 'group-hover:scale-110'} transition-all`} />
-                {wishlist.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-gold text-black text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                    {wishlist.length}
-                  </span>
-                )}
-              </button>
+          </div>
 
+          {/* Empty centre placeholder on mobile so layout still works */}
+          <div className="lg:hidden" />
+
+          {/* Right actions — right column */}
+          <div className="flex items-center gap-4 lg:gap-6 justify-end">
+            {/* Wishlist — desktop only */}
+            <button
+              type="button"
+              onClick={() => user ? setWishlistOpen(true) : setAuthModalOpen(true)}
+              className="relative text-white hover:text-gold transition-colors group hidden lg:block"
+            >
+              <Heart className={`w-5 h-5 ${wishlist.length > 0 ? 'fill-gold text-gold scale-110' : 'group-hover:scale-110'} transition-all`} />
+              {wishlist.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-gold text-black text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {wishlist.length}
+                </span>
+              )}
+            </button>
+
+            {/* Divider — desktop only */}
+            <div className="h-4 w-px bg-white/20 hidden lg:block" />
+
+            {/* Member entry / avatar — desktop only */}
+            <div className="hidden lg:block">
               {user ? (
-                <div className="flex items-center gap-4 group relative">
+                <div className="flex items-center gap-4">
                   <div className="flex flex-col items-end">
                     <span className="text-white text-[9px] tracking-widest font-bold uppercase">{user.displayName || 'MEMBER'}</span>
-                    <button 
+                    <button
+                      type="button"
                       onClick={() => setProfileOpen(true)}
                       className="text-gold/60 hover:text-gold text-[7px] tracking-[0.2em] font-bold uppercase transition-colors flex items-center gap-1"
                     >
                       <Settings className="w-2 h-2" /> MEMBER PROFILE
                     </button>
                   </div>
-                  <button 
+                  <button
+                    type="button"
                     onClick={() => setProfileOpen(true)}
                     className="w-9 h-9 rounded-full overflow-hidden border border-gold/30 hover:border-gold transition-colors p-0.5"
                   >
@@ -109,22 +124,22 @@ export default function Navbar() {
                   </button>
                 </div>
               ) : (
-                <button 
+                <button
+                  type="button"
                   onClick={() => setAuthModalOpen(true)}
-                  className="flex items-center gap-3 px-6 py-2.5 border border-gold/30 text-gold font-thin-caps hover:bg-gold/10 transition-all duration-500 group"
+                  className="flex items-center gap-3 px-6 py-2.5 border border-gold/30 text-gold font-thin-caps hover:bg-gold/10 transition-all duration-500 group whitespace-nowrap"
                 >
                   <User className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   MEMBER ENTRY
                 </button>
               )}
             </div>
-          </div>
 
-          {/* Mobile Toggle */}
-          <div className="lg:hidden flex items-center gap-6">
-            <button 
+            {/* Mobile: wishlist heart */}
+            <button
+              type="button"
               onClick={() => user ? setWishlistOpen(true) : setAuthModalOpen(true)}
-              className="relative text-white hover:text-gold transition-colors"
+              className="relative text-white hover:text-gold transition-colors lg:hidden"
             >
               <Heart className={`w-5 h-5 ${wishlist.length > 0 ? 'fill-gold text-gold' : ''}`} />
               {wishlist.length > 0 && (
@@ -133,152 +148,201 @@ export default function Navbar() {
                 </span>
               )}
             </button>
-            <button 
-              className="text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+
+            {/*
+              KEY FIX 2 — hamburger button:
+              • type="button" prevents any accidental form submit behaviour
+              • explicit z-[60] so it always sits above hero motion layers
+              • touch-manipulation disables the 300ms tap delay on iOS/Android
+              • min-w/h of 44px meets touch target size guidelines (no more missed taps)
+              • pointer-events-auto ensures it is never blocked by a parent overlay
+            */}
+            <button
+              type="button"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((o) => !o)}
+              className="lg:hidden relative z-[60] flex items-center justify-center w-11 h-11 text-white hover:text-gold transition-colors touch-manipulation pointer-events-auto"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              {mobileMenuOpen ? <X /> : <Menu />}
+              <AnimatePresence mode="wait" initial={false}>
+                {mobileMenuOpen ? (
+                  <motion.span
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <X className="w-6 h-6" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Menu className="w-6 h-6" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <>
-              {/* Backdrop */}
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setMobileMenuOpen(false)}
-                className="fixed inset-0 bg-black/80 backdrop-blur-md z-[55] lg:hidden"
-              />
-              
-              {/* Menu Content */}
-              <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: 0 }}
-                exit={{ x: '-100%' }}
-                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="lg:hidden fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-[#080808] border-r border-gold/10 z-[60] flex flex-col pt-32 pb-12 overflow-hidden"
-              >
-                <button 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="absolute top-8 right-8 text-white/40 hover:text-gold transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-
-                <div className="flex-1 px-10 space-y-10">
-                  <div className="flex items-center gap-3 mb-12">
-                    <div className="w-8 h-8 bg-gold rounded-sm rotate-45 flex items-center justify-center">
-                      <span className="text-black font-bold -rotate-45 text-xs tracking-tighter">V</span>
-                    </div>
-                    <span className="text-xl font-serif tracking-[0.2em] text-white italic">VELOCE</span>
-                  </div>
-
-                  <div className="flex flex-col gap-8">
-                    {navLinks.map((link) => (
-                      <a 
-                        key={link.name} 
-                        href={link.href}
-                        className="text-white text-xs uppercase tracking-[0.4em] font-bold hover:text-gold transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </a>
-                    ))}
-                  </div>
-                  
-                  {user ? (
-                    <div className="pt-12 border-t border-white/10">
-                      <button 
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setProfileOpen(true);
-                        }}
-                        className="flex items-center gap-5 mb-8 group"
-                      >
-                        <div className="w-12 h-12 rounded-full overflow-hidden border border-gold/30 p-0.5">
-                          <img src={user.photoURL || 'https://via.placeholder.com/150'} alt="Profile" className="w-full h-full object-cover rounded-full" />
-                        </div>
-                        <div className="text-left">
-                          <span className="text-white text-[10px] tracking-widest font-bold uppercase block mb-1">{user.displayName || 'MEMBER'}</span>
-                          <span className="text-gold/60 text-[8px] tracking-widest font-bold uppercase transition-colors group-hover:text-gold flex items-center gap-1">VIEW MEMBER PROFILE <ChevronRight className="w-2 h-2" /></span>
-                        </div>
-                      </button>
-                      <button onClick={() => logout()} className="text-white/20 hover:text-red-500 text-[10px] tracking-[0.3em] font-bold uppercase transition-colors flex items-center gap-2">
-                        <LogOut className="w-3 h-3" /> SECURE LOGOUT
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="pt-12 border-t border-white/10">
-                      <button 
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setAuthModalOpen(true);
-                        }}
-                        className="w-full flex items-center justify-between p-6 border border-gold text-gold text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-gold/5 transition-all"
-                      >
-                        MEMBER ENTRY <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                <div className="px-10">
-                  <p className="text-[8px] text-white/20 tracking-widest uppercase">
-                    © 2024 VELOCE GLOBAL CONCIERGE. <br/>ALL RIGHTS RESERVED.
-                  </p>
-                </div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
       </nav>
 
-      {/* Auth Modal */}
+      {/* ── MOBILE MENU — rendered as a portal OUTSIDE <nav> ────────────────── */}
+      {/*
+        KEY FIX 3 — moved the mobile drawer outside the <nav> element entirely.
+        When it lived inside <nav> the drawer's backdrop sat at z-[55] which
+        occasionally fell below hero motion layers, swallowing touch events
+        before they reached the hamburger. Now it's a sibling at root level.
+      */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="mobile-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[55] lg:hidden"
+            />
+
+            {/* Drawer */}
+            <motion.div
+              key="mobile-drawer"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+              className="lg:hidden fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-[#080808] border-r border-gold/10 z-[58] flex flex-col pt-28 pb-12 overflow-hidden"
+            >
+              {/* Close button inside drawer */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="absolute top-8 right-8 text-white/40 hover:text-gold transition-colors touch-manipulation"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <div className="flex-1 px-10 space-y-10 overflow-y-auto">
+                {/* Mini logo */}
+                <div className="flex items-center gap-3 mb-12">
+                  <div className="w-8 h-8 bg-gold rounded-sm rotate-45 flex items-center justify-center">
+                    <span className="text-black font-bold -rotate-45 text-xs tracking-tighter">V</span>
+                  </div>
+                  <span className="text-xl font-serif tracking-[0.2em] text-white italic">VELOCE</span>
+                </div>
+
+                {/* Nav links */}
+                <div className="flex flex-col gap-8">
+                  {navLinks.map((link, i) => (
+                    <motion.a
+                      key={link.name}
+                      href={link.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 * i, duration: 0.3 }}
+                      className="text-white text-xs uppercase tracking-[0.4em] font-bold hover:text-gold transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </motion.a>
+                  ))}
+                </div>
+
+                {/* Auth section */}
+                {user ? (
+                  <div className="pt-12 border-t border-white/10">
+                    <button
+                      type="button"
+                      onClick={() => { setMobileMenuOpen(false); setProfileOpen(true); }}
+                      className="flex items-center gap-5 mb-8 group"
+                    >
+                      <div className="w-12 h-12 rounded-full overflow-hidden border border-gold/30 p-0.5">
+                        <img src={user.photoURL || 'https://via.placeholder.com/150'} alt="Profile" className="w-full h-full object-cover rounded-full" />
+                      </div>
+                      <div className="text-left">
+                        <span className="text-white text-[10px] tracking-widest font-bold uppercase block mb-1">{user.displayName || 'MEMBER'}</span>
+                        <span className="text-gold/60 text-[8px] tracking-widest font-bold uppercase transition-colors group-hover:text-gold flex items-center gap-1">
+                          VIEW MEMBER PROFILE <ChevronRight className="w-2 h-2" />
+                        </span>
+                      </div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => logout()}
+                      className="text-white/20 hover:text-red-500 text-[10px] tracking-[0.3em] font-bold uppercase transition-colors flex items-center gap-2"
+                    >
+                      <LogOut className="w-3 h-3" /> SECURE LOGOUT
+                    </button>
+                  </div>
+                ) : (
+                  <div className="pt-12 border-t border-white/10">
+                    <button
+                      type="button"
+                      onClick={() => { setMobileMenuOpen(false); setAuthModalOpen(true); }}
+                      className="w-full flex items-center justify-between p-6 border border-gold text-gold text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-gold/5 transition-all touch-manipulation"
+                    >
+                      MEMBER ENTRY <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div className="px-10 mt-8 shrink-0">
+                <p className="text-[8px] text-white/20 tracking-widest uppercase">
+                  © 2024 VELOCE GLOBAL CONCIERGE.<br />ALL RIGHTS RESERVED.
+                </p>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* ── AUTH MODAL ──────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {authModalOpen && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setAuthModalOpen(false)}
               className="absolute inset-0 bg-black/90 backdrop-blur-xl"
             />
-            
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               className="relative w-full max-w-md bg-[#0a0a0a] border border-white/10 p-12 text-center shadow-2xl"
             >
-              <button 
+              <button
+                type="button"
                 onClick={() => setAuthModalOpen(false)}
                 className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
-
               <div className="w-16 h-16 bg-gradient-to-br from-gold to-[#8E793E] rounded-sm rotate-45 flex items-center justify-center shadow-lg shadow-gold/20 mx-auto mb-12">
                 <span className="text-black font-bold -rotate-45 text-2xl tracking-tighter">V</span>
               </div>
-
               <span className="section-tag !text-gold mb-4 inline-block">MEMBER ACCESS</span>
               <h2 className="text-3xl font-serif text-white mb-6 italic">Welcome to Veloce</h2>
               <p className="text-white/40 text-[10px] tracking-widest leading-loose uppercase mb-12">
                 Experience unparalleled luxury and exclusive access to the world's most prestigious events.
               </p>
-
               <div className="space-y-4">
-                <button 
-                  onClick={() => {
-                    signInWithGoogle();
-                    setAuthModalOpen(false);
-                  }}
+                <button
+                  type="button"
+                  onClick={() => { signInWithGoogle(); setAuthModalOpen(false); }}
                   className="w-full btn-gold py-4 flex items-center justify-center gap-3"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -289,7 +353,6 @@ export default function Navbar() {
                   </svg>
                   CONTINUE WITH GOOGLE
                 </button>
-                
                 <p className="text-[8px] text-white/20 tracking-widest uppercase mt-8">
                   BY CONTINUING, YOU AGREE TO OUR TERMS OF SERVICE AND PRIVACY POLICY.
                 </p>
@@ -299,24 +362,20 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      <ProfilePortal 
-        isOpen={profileOpen} 
-        onClose={() => setProfileOpen(false)} 
-      />
+      <ProfilePortal isOpen={profileOpen} onClose={() => setProfileOpen(false)} />
 
-      {/* Wishlist Drawer */}
+      {/* ── WISHLIST DRAWER ─────────────────────────────────────────────────── */}
       <AnimatePresence>
         {wishlistOpen && (
           <div className="fixed inset-0 z-[100] flex justify-end">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setWishlistOpen(false)}
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
-            
-            <motion.div 
+            <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -328,14 +387,14 @@ export default function Navbar() {
                   <span className="section-tag !text-gold mb-1 inline-block">MY SELECTION</span>
                   <h2 className="text-3xl font-serif text-white italic">Event Wishlist</h2>
                 </div>
-                <button 
+                <button
+                  type="button"
                   onClick={() => setWishlistOpen(false)}
                   className="p-2 hover:bg-white/5 text-white/40 hover:text-white transition-all rounded-full"
                 >
                   <X className="w-6 h-6" />
                 </button>
               </div>
-
               <div className="flex-1 overflow-y-auto p-8">
                 {wishlist.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center opacity-20 text-center">
@@ -345,7 +404,7 @@ export default function Navbar() {
                 ) : (
                   <div className="space-y-6">
                     {wishlist.map((event) => (
-                      <motion.div 
+                      <motion.div
                         key={event.title}
                         layout
                         initial={{ opacity: 0, y: 10 }}
@@ -366,12 +425,12 @@ export default function Navbar() {
                               <span className="text-[8px] tracking-widest uppercase text-white">{event.location}</span>
                             </div>
                           </div>
-                          
                           <div className="flex items-center justify-between">
-                            <button className="flex items-center gap-2 text-gold font-thin-caps !text-[8px] group/btn">
+                            <button type="button" className="flex items-center gap-2 text-gold font-thin-caps !text-[8px] group/btn">
                               VIEW DETAILS <ChevronRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
                             </button>
-                            <button 
+                            <button
+                              type="button"
                               onClick={() => toggleWishlist(event)}
                               className="text-white/20 hover:text-red-500 transition-colors p-2"
                               title="Remove from wishlist"
@@ -385,13 +444,13 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-
               {wishlist.length > 0 && (
                 <div className="p-8 border-t border-white/5 space-y-4">
-                  <button className="btn-gold w-full py-4 text-[10px]">
+                  <button type="button" className="btn-gold w-full py-4 text-[10px]">
                     INQUIRE ABOUT SELECTION
                   </button>
-                  <button 
+                  <button
+                    type="button"
                     onClick={clearWishlist}
                     className="w-full text-white/30 hover:text-white text-[8px] uppercase tracking-widest flex items-center justify-center gap-2 py-2 transition-all"
                   >
