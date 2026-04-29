@@ -44,9 +44,9 @@ function App() {
           {/* Partners Section */}
           <section className="py-24 bg-black border-y border-white/5">
             <div className="max-w-7xl mx-auto px-4 md:px-10">
-              <div className="flex flex-wrap justify-between items-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
                  {['ROLEX', 'GULFSTREAM', 'PADDOCK CLUB', 'NETJETS', 'MAYFAIR'].map(brand => (
-                   <span key={brand} className="text-xl font-serif tracking-[0.4em] text-white font-bold">{brand}</span>
+                   <span key={brand} className="text-lg font-serif tracking-[0.4em] text-white font-bold text-center whitespace-nowrap">{brand}</span>
                  ))}
               </div>
             </div>

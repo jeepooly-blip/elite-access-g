@@ -16,9 +16,14 @@
   --font-serif-alt: "Cormorant Garamond", serif;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   @apply bg-black text-white font-sans antialiased selection:bg-gold selection:text-black;
   font-weight: 200;
+  overflow-x: hidden;
 }
 
 .font-thin-caps {

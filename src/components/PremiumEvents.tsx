@@ -203,19 +203,19 @@ export default function PremiumEvents() {
               Exclusive access to the pinnacles of sport, culture, and society.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row gap-6 w-full md:w-auto items-center">
+          <div className="flex flex-col gap-4 w-full md:w-auto">
             {/* Search Bar */}
-            <div className="relative w-full md:w-64 group">
+            <div className="relative w-full group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3 h-3 text-gold opacity-40 group-focus-within:opacity-100 transition-opacity" />
-              <input 
-                type="text" 
-                placeholder="SEARCH EVENTS OR LOCATIONS" 
+              <input
+                type="text"
+                placeholder="SEARCH EVENTS OR LOCATIONS"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-white/5 border border-white/10 px-10 py-3 text-[9px] tracking-[0.2em] text-white focus:outline-none focus:border-gold/30 transition-all font-thin-caps placeholder:text-white/20"
               />
               {searchQuery && (
-                <button 
+                <button
                   onClick={() => setSearchQuery('')}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors"
                 >
@@ -224,14 +224,14 @@ export default function PremiumEvents() {
               )}
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-2">
                {['ALL', 'FORMULA 1', 'SPORT', 'CULTURE'].map((cat) => (
-                 <button 
-                   key={cat} 
+                 <button
+                   key={cat}
                    onClick={() => setActiveFilter(cat)}
-                   className={`text-[10px] tracking-[0.3em] px-6 py-3 border transition-all duration-500 font-thin-caps ${
-                     activeFilter === cat 
-                     ? 'bg-gold text-black border-gold' 
+                   className={`text-[9px] tracking-[0.2em] px-4 py-2.5 border transition-all duration-500 font-thin-caps ${
+                     activeFilter === cat
+                     ? 'bg-gold text-black border-gold'
                      : 'border-white/10 text-white hover:border-gold/30'
                    }`}
                  >
