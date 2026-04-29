@@ -83,7 +83,7 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Main content — padded so it never clips behind the sidebar nav */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-10 w-full mb-12 pr-4 md:pr-52">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-10 w-full mb-12 pr-4 md:pr-52 pt-20 md:pt-0">
         <div className="max-w-3xl">
           <AnimatePresence mode="wait">
             <motion.div

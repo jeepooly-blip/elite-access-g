@@ -33,9 +33,9 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group"
+              className="group flex flex-col"
             >
-              <div className="w-14 h-14 rounded-full border border-gold/10 flex items-center justify-center mb-8 group-hover:border-gold/40 transition-colors">
+              <div className="w-12 h-12 rounded-full border border-gold/10 flex items-center justify-center mb-5 group-hover:border-gold/40 transition-colors">
                 <service.icon className="w-6 h-6 text-gold opacity-60 group-hover:opacity-100 transition-opacity" />
               </div>
               <h3 className="text-xl font-serif text-white mb-4 italic tracking-wide">{service.label}</h3>

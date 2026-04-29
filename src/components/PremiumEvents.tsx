@@ -12,7 +12,7 @@ const EVENTS = [
     title: "Monaco Grand Prix",
     date: "MAY 2024",
     location: "Monte Carlo, Monaco",
-    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000",
     images: [
       "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
       "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=2000",
@@ -43,7 +43,7 @@ const EVENTS = [
     title: "Royal Ascot",
     date: "JUNE 2024",
     location: "Ascot, UK",
-    image: "https://images.unsplash.com/photo-1549413247-920400f074d4?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=2000",
     images: [
       "https://images.unsplash.com/photo-1549413247-920400f074d4?auto=format&fit=crop&q=80&w=2000",
       "https://images.unsplash.com/photo-1595111812061-0b336a18d18e?auto=format&fit=crop&q=80&w=2000",
@@ -73,7 +73,7 @@ const EVENTS = [
     title: "Wimbledon Finals",
     date: "JULY 2024",
     location: "London, UK",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
     images: [
       "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=2000",
       "https://images.unsplash.com/photo-1592709823125-a191f07a2a5e?auto=format&fit=crop&q=80&w=2000",
