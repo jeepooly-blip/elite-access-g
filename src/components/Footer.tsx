@@ -3,7 +3,7 @@ import { Crown, Instagram, Twitter, Linkedin } from 'lucide-react';
 export default function Footer() {
   return (
       <footer className="bg-black-deep border-t border-gold/10 pt-24 pb-12">
-      <div className="max-w-7xl mx-auto px-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-8">

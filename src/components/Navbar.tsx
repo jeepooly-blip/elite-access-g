@@ -1,13 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, User, Heart, Trash2, ChevronRight } from 'lucide-react';
+import { Menu, X, User, Heart, Trash2, ChevronRight, LogOut, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useWishlist } from '../lib/WishlistContext';
+import { useAuth } from '../lib/AuthContext';
+import ProfilePortal from './ProfilePortal';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [wishlistOpen, setWishlistOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const { wishlist, toggleWishlist, clearWishlist } = useWishlist();
+  const { user, signInWithGoogle, logout } = useAuth();
+
+  useEffect(() => {
+    const handleTriggerAuth = () => setAuthModalOpen(true);
+    window.addEventListener('VELOCE_TRIGGER_AUTH', handleTriggerAuth);
+    return () => window.removeEventListener('VELOCE_TRIGGER_AUTH', handleTriggerAuth);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +47,7 @@ export default function Navbar() {
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-6 md:px-10 py-6 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-4 md:px-10 py-6 ${
           scrolled ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-transparent'
         }`}
       >
@@ -68,7 +79,7 @@ export default function Navbar() {
             <div className="flex items-center gap-6">
               {/* Wishlist Trigger */}
               <button 
-                onClick={() => setWishlistOpen(true)}
+                onClick={() => user ? setWishlistOpen(true) : setAuthModalOpen(true)}
                 className="relative text-white hover:text-gold transition-colors group"
               >
                 <Heart className={`w-5 h-5 ${wishlist.length > 0 ? 'fill-gold text-gold scale-110' : 'group-hover:scale-110'} transition-all`} />
@@ -79,17 +90,40 @@ export default function Navbar() {
                 )}
               </button>
 
-              <button className="flex items-center gap-3 px-6 py-2.5 border border-gold/30 text-gold font-thin-caps hover:bg-gold/10 transition-all duration-500 group">
-                <User className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                MEMBER ENTRY
-              </button>
+              {user ? (
+                <div className="flex items-center gap-4 group relative">
+                  <div className="flex flex-col items-end">
+                    <span className="text-white text-[9px] tracking-widest font-bold uppercase">{user.displayName || 'MEMBER'}</span>
+                    <button 
+                      onClick={() => setProfileOpen(true)}
+                      className="text-gold/60 hover:text-gold text-[7px] tracking-[0.2em] font-bold uppercase transition-colors flex items-center gap-1"
+                    >
+                      <Settings className="w-2 h-2" /> MEMBER PROFILE
+                    </button>
+                  </div>
+                  <button 
+                    onClick={() => setProfileOpen(true)}
+                    className="w-9 h-9 rounded-full overflow-hidden border border-gold/30 hover:border-gold transition-colors p-0.5"
+                  >
+                    <img src={user.photoURL || 'https://via.placeholder.com/150'} alt="Profile" className="w-full h-full object-cover rounded-full" />
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  onClick={() => setAuthModalOpen(true)}
+                  className="flex items-center gap-3 px-6 py-2.5 border border-gold/30 text-gold font-thin-caps hover:bg-gold/10 transition-all duration-500 group"
+                >
+                  <User className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  MEMBER ENTRY
+                </button>
+              )}
             </div>
           </div>
 
           {/* Mobile Toggle */}
           <div className="lg:hidden flex items-center gap-6">
             <button 
-              onClick={() => setWishlistOpen(true)}
+              onClick={() => user ? setWishlistOpen(true) : setAuthModalOpen(true)}
               className="relative text-white hover:text-gold transition-colors"
             >
               <Heart className={`w-5 h-5 ${wishlist.length > 0 ? 'fill-gold text-gold' : ''}`} />
@@ -111,31 +145,164 @@ export default function Navbar() {
         {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-black-light border-b border-gold/10 overflow-hidden mt-6"
-            >
-              <div className="flex flex-col p-10 gap-8">
-                {navLinks.map((link) => (
-                  <a 
-                    key={link.name} 
-                    href={link.href}
-                    className="text-white text-xs uppercase tracking-[0.4em] font-medium"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <button className="flex items-center justify-center gap-3 p-4 border border-gold text-gold text-xs uppercase tracking-[0.4em] font-bold">
-                  MEMBER ENTRY
+            <>
+              {/* Backdrop */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileMenuOpen(false)}
+                className="fixed inset-0 bg-black/80 backdrop-blur-md z-[55] lg:hidden"
+              />
+              
+              {/* Menu Content */}
+              <motion.div
+                initial={{ x: '-100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '-100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="lg:hidden fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-[#080808] border-r border-gold/10 z-[60] flex flex-col pt-32 pb-12 overflow-hidden"
+              >
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="absolute top-8 right-8 text-white/40 hover:text-gold transition-colors"
+                >
+                  <X className="w-6 h-6" />
                 </button>
-              </div>
-            </motion.div>
+
+                <div className="flex-1 px-10 space-y-10">
+                  <div className="flex items-center gap-3 mb-12">
+                    <div className="w-8 h-8 bg-gold rounded-sm rotate-45 flex items-center justify-center">
+                      <span className="text-black font-bold -rotate-45 text-xs tracking-tighter">V</span>
+                    </div>
+                    <span className="text-xl font-serif tracking-[0.2em] text-white italic">VELOCE</span>
+                  </div>
+
+                  <div className="flex flex-col gap-8">
+                    {navLinks.map((link) => (
+                      <a 
+                        key={link.name} 
+                        href={link.href}
+                        className="text-white text-xs uppercase tracking-[0.4em] font-bold hover:text-gold transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {link.name}
+                      </a>
+                    ))}
+                  </div>
+                  
+                  {user ? (
+                    <div className="pt-12 border-t border-white/10">
+                      <button 
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setProfileOpen(true);
+                        }}
+                        className="flex items-center gap-5 mb-8 group"
+                      >
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-gold/30 p-0.5">
+                          <img src={user.photoURL || 'https://via.placeholder.com/150'} alt="Profile" className="w-full h-full object-cover rounded-full" />
+                        </div>
+                        <div className="text-left">
+                          <span className="text-white text-[10px] tracking-widest font-bold uppercase block mb-1">{user.displayName || 'MEMBER'}</span>
+                          <span className="text-gold/60 text-[8px] tracking-widest font-bold uppercase transition-colors group-hover:text-gold flex items-center gap-1">VIEW MEMBER PROFILE <ChevronRight className="w-2 h-2" /></span>
+                        </div>
+                      </button>
+                      <button onClick={() => logout()} className="text-white/20 hover:text-red-500 text-[10px] tracking-[0.3em] font-bold uppercase transition-colors flex items-center gap-2">
+                        <LogOut className="w-3 h-3" /> SECURE LOGOUT
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="pt-12 border-t border-white/10">
+                      <button 
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setAuthModalOpen(true);
+                        }}
+                        className="w-full flex items-center justify-between p-6 border border-gold text-gold text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-gold/5 transition-all"
+                      >
+                        MEMBER ENTRY <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="px-10">
+                  <p className="text-[8px] text-white/20 tracking-widest uppercase">
+                    © 2024 VELOCE GLOBAL CONCIERGE. <br/>ALL RIGHTS RESERVED.
+                  </p>
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </nav>
+
+      {/* Auth Modal */}
+      <AnimatePresence>
+        {authModalOpen && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setAuthModalOpen(false)}
+              className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+            />
+            
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative w-full max-w-md bg-[#0a0a0a] border border-white/10 p-12 text-center shadow-2xl"
+            >
+              <button 
+                onClick={() => setAuthModalOpen(false)}
+                className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="w-16 h-16 bg-gradient-to-br from-gold to-[#8E793E] rounded-sm rotate-45 flex items-center justify-center shadow-lg shadow-gold/20 mx-auto mb-12">
+                <span className="text-black font-bold -rotate-45 text-2xl tracking-tighter">V</span>
+              </div>
+
+              <span className="section-tag !text-gold mb-4 inline-block">MEMBER ACCESS</span>
+              <h2 className="text-3xl font-serif text-white mb-6 italic">Welcome to Veloce</h2>
+              <p className="text-white/40 text-[10px] tracking-widest leading-loose uppercase mb-12">
+                Experience unparalleled luxury and exclusive access to the world's most prestigious events.
+              </p>
+
+              <div className="space-y-4">
+                <button 
+                  onClick={() => {
+                    signInWithGoogle();
+                    setAuthModalOpen(false);
+                  }}
+                  className="w-full btn-gold py-4 flex items-center justify-center gap-3"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                    <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                    <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
+                    <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                  </svg>
+                  CONTINUE WITH GOOGLE
+                </button>
+                
+                <p className="text-[8px] text-white/20 tracking-widest uppercase mt-8">
+                  BY CONTINUING, YOU AGREE TO OUR TERMS OF SERVICE AND PRIVACY POLICY.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <ProfilePortal 
+        isOpen={profileOpen} 
+        onClose={() => setProfileOpen(false)} 
+      />
 
       {/* Wishlist Drawer */}
       <AnimatePresence>

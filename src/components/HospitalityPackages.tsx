@@ -12,7 +12,7 @@ const INCLUSIONS = [
 
 export default function HospitalityPackages() {
   return (
-    <section id="hospitality" className="py-32 bg-black px-10 border-y border-white/5">
+    <section id="hospitality" className="py-32 bg-black px-4 md:px-10 border-y border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mb-32">
           <motion.div 

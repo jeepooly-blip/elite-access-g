@@ -1,13 +1,58 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /requests/{requestId} {
-      allow create: if request.resource.data.name is string 
-                    && request.resource.data.email is string
-                    && request.resource.data.createdAt == request.time;
-    }
+    
+    // 0. Global Safety Net
     match /{document=**} {
       allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // --- User Profile Rules ---
+    match /users/{userId} {
+      function isValidUser(data) {
+        return data.keys().hasAll(['userId', 'preferences', 'updatedAt'])
+        && data.keys().size() == 3
+        && data.userId == request.auth.uid
+        && data.preferences is map
+        && data.preferences.keys().hasAll(['priorityAlerts', 'globalConcierge', 'enhancedSecurity'])
+        && data.preferences.priorityAlerts is bool
+        && data.preferences.globalConcierge is bool
+        && data.preferences.enhancedSecurity is bool
+        && data.updatedAt == request.time;
+      }
+
+      allow get: if isOwner(userId);
+      allow create: if isValidUser(incoming());
+      allow update: if isOwner(userId) && isValidUser(incoming());
+    }
+
+    // --- Concierge Request Rules ---
+    match /requests/{requestId} {
+      function isValidRequest(data) {
+        return data.keys().hasAll(['name', 'email', 'service', 'createdAt'])
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 100
+        && data.email is string && data.email.size() > 0 && data.email.size() <= 100
+        && data['service'] is string && data['service'].size() > 0 && data['service'].size() <= 200
+        && (data.get('userId', null) == null || data.userId == request.auth.uid)
+        && (data.get('status', 'PENDING') in ['PENDING', 'CONFIRMED', 'CANCELLED'])
+        && data.createdAt == request.time;
+      }
+
+      // Allow creating even if not signed in (for potential guests), but if signed in, userId must match.
+      allow create: if isValidRequest(incoming());
+      
+      // Allow users to list their own requests
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      
+      // Allow users to get their own requests
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
     }
   }
 }

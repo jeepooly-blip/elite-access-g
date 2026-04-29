@@ -24,7 +24,7 @@ const EXPERIENCES = [
 
 export default function LuxuryExperiences() {
   return (
-    <section className="py-32 bg-black px-10">
+    <section className="py-32 bg-black px-4 md:px-10">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <span className="section-tag">ELITE ASSETS</span>

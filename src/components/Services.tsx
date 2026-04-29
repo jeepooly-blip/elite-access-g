@@ -12,8 +12,8 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-32 bg-black-deep">
-      <div className="max-w-7xl mx-auto px-10">
+    <section id="services" className="py-32 bg-black-deep px-4 md:px-10">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <motion.span 
             initial={{ opacity: 0 }}

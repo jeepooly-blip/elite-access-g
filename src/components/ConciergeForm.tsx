@@ -31,7 +31,7 @@ export default function ConciergeForm() {
   };
 
   return (
-    <section id="concierge" className="py-32 bg-black relative overflow-hidden px-10">
+    <section id="concierge" className="py-32 bg-black relative overflow-hidden px-4 md:px-10">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           {/* Contact Details */}

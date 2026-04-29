@@ -12,6 +12,7 @@ import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
 
 import { WishlistProvider } from './lib/WishlistContext';
+import { AuthProvider } from './lib/AuthContext';
 
 function App() {
   useEffect(() => {
@@ -30,8 +31,9 @@ function App() {
   }, []);
 
   return (
-    <WishlistProvider>
-      <div className="min-h-screen bg-black overflow-x-hidden">
+    <AuthProvider>
+      <WishlistProvider>
+        <div className="min-h-screen bg-black overflow-x-hidden">
         <Navbar />
         <Hero />
         
@@ -41,7 +43,7 @@ function App() {
           
           {/* Partners Section */}
           <section className="py-24 bg-black border-y border-white/5">
-            <div className="max-w-7xl mx-auto px-10">
+            <div className="max-w-7xl mx-auto px-4 md:px-10">
               <div className="flex flex-wrap justify-between items-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
                  {['ROLEX', 'GULFSTREAM', 'PADDOCK CLUB', 'NETJETS', 'MAYFAIR'].map(brand => (
                    <span key={brand} className="text-xl font-serif tracking-[0.4em] text-white font-bold">{brand}</span>
@@ -53,7 +55,7 @@ function App() {
           <LuxuryExperiences />
 
           {/* Global Destinations Grid */}
-          <section className="py-32 bg-black-deep px-10 border-t border-gold/10" id="destinations">
+          <section className="py-32 bg-black-deep px-4 md:px-10 border-t border-gold/10" id="destinations">
             <div className="max-w-7xl mx-auto">
               <div className="flex justify-between items-end mb-20 gap-8">
                 <div>
@@ -102,6 +104,7 @@ function App() {
         <Footer />
       </div>
     </WishlistProvider>
+  </AuthProvider>
   );
 }
 
