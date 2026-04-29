@@ -69,10 +69,10 @@ function App() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { name: 'Dubai', desc: 'BURJ AL ARAB', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2070&auto=format&fit=crop' },
-                  { name: 'Monaco', desc: 'MONTE CARLO', img: 'https://images.unsplash.com/photo-1559586440-6291a1828859?q=80&w=2070&auto=format&fit=crop' },
-                  { name: 'Abu Dhabi', desc: 'YAS MARINA', img: 'https://images.unsplash.com/photo-1549411985-797745778844?q=80&w=2070&auto=format&fit=crop' },
-                  { name: 'London', desc: 'MAYFAIR', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop' }
+                  { name: 'Monaco', desc: 'CIRCUIT DE MONACO', img: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=2070&auto=format&fit=crop' },
+                  { name: 'Abu Dhabi', desc: 'YAS MARINA CIRCUIT', img: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070&auto=format&fit=crop' },
+                  { name: 'Silverstone', desc: 'BRITISH GRAND PRIX', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop' },
+                  { name: 'Singapore', desc: 'MARINA BAY CIRCUIT', img: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=2070&auto=format&fit=crop' }
                 ].map((dest, i) => (
                   <motion.div 
                     key={i} 
