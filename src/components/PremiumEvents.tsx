@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Calendar, MapPin, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Calendar, MapPin, ChevronRight, X, Clock, ShieldCheck, Star, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const EVENTS = [
@@ -11,9 +11,22 @@ const EVENTS = [
     location: "Monte Carlo, Monaco",
     image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
     featured: true,
+    description: "The crown jewel of the F1 calendar. Experience the glamour of Monte Carlo from the most exclusive viewpoint in the world.",
     details: {
       access: "Paddock Club Suite",
-      includes: "Gourmet Buffet, Open Bar, Pit Lane Access"
+      includes: "Gourmet Buffet, Open Bar, Pit Lane Access",
+      highlights: [
+        "Direct views above the team garages and pit lane",
+        "Team appearances and technical briefings",
+        "Guided track tours on the high-speed race truck",
+        "All-day premium open bar with Ferrari Trento"
+      ],
+      itinerary: [
+        { time: "09:00", event: "Paddock Club Opens - Morning Refreshments" },
+        { time: "11:30", event: "Pit Lane Walk & Team Photo Opportunities" },
+        { time: "13:00", event: "Gourmet Luncheon with Fine Wines" },
+        { time: "15:00", event: "Main Race Start - Direct Viewing" }
+      ]
     }
   },
   {
@@ -22,7 +35,24 @@ const EVENTS = [
     title: "Royal Ascot",
     date: "JUNE 2024",
     location: "Ascot, UK",
-    image: "https://images.unsplash.com/photo-1549413247-920400f074d4?auto=format&fit=crop&q=80&w=2000"
+    image: "https://images.unsplash.com/photo-1549413247-920400f074d4?auto=format&fit=crop&q=80&w=2000",
+    description: "Step into the inner sanctum of British high society at the world's most famous race meeting.",
+    details: {
+      access: "Private Box Tier 1",
+      includes: "Champagne Reception, 5-Course Lunch, Royal Procession View",
+      highlights: [
+        "Uninterrupted views of the Royal Procession",
+        "Interaction with the finest equine talent",
+        "Traditional Afternoon Tea service",
+        "Dedicated VIP hostess service"
+      ],
+      itinerary: [
+        { time: "10:30", event: "Arrival & Champagne Reception" },
+        { time: "12:30", event: "Royal Procession Viewing" },
+        { time: "14:00", event: "First Race - Premium Grandstand Access" },
+        { time: "16:30", event: "Afternoon Tea & Prizegiving" }
+      ]
+    }
   },
   {
     category: "CENTER COURT",
@@ -30,7 +60,24 @@ const EVENTS = [
     title: "Wimbledon Finals",
     date: "JULY 2024",
     location: "London, UK",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=2000"
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=2000",
+    description: "Witness history in the making on the grass courts of SW19. The ultimate test of skill and elegance.",
+    details: {
+      access: "Debenture Seats",
+      includes: "The Gatsby Club Entry, Personalized Gift, Concierge Service",
+      highlights: [
+        "Reserved seating on Center Court (Debenture)",
+        "Gatsby Club hospitality - minutes from the gates",
+        "Champagne breakfast upon arrival",
+        "Official Wimbledon programs and cushions"
+      ],
+      itinerary: [
+        { time: "10:00", event: "Gatsby Club Reception - Live Jazz" },
+        { time: "11:30", event: "Pre-match 3-Course Luncheon" },
+        { time: "13:30", event: "Center Court Seats - Final Begins" },
+        { time: "17:00", event: "Traditional Strawberries & Cream Service" }
+      ]
+    }
   },
   {
     category: "GALA DINNER",
@@ -38,12 +85,42 @@ const EVENTS = [
     title: "The Met Gala",
     date: "MAY 2024",
     location: "New York, USA",
-    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2000"
+    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2000",
+    description: "Fashion's biggest night. Join the elite for an evening of unparalleled creativity and cultural impact.",
+    details: {
+      access: "Table Invitation",
+      includes: "Red Carpet Entry, Museum Private Tour, Star-studded Dinner",
+      highlights: [
+        "Upper East Side pre-party access",
+        "Global press walk on the iconic steps",
+        "Private viewing of the new exhibition",
+        "Intimate dinner table with industry leaders"
+      ],
+      itinerary: [
+        { time: "18:00", event: "Red Carpet Arrivals Commence" },
+        { time: "19:30", event: "Cocktails & Exhibition Preview" },
+        { time: "20:30", event: "The Costume Institute Gala Dinner" },
+        { time: "23:00", event: "Official After-Party" }
+      ]
+    }
   }
 ];
 
 export default function PremiumEvents() {
   const [activeFilter, setActiveFilter] = useState('ALL');
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+
+  // Lock scroll when modal is open
+  useEffect(() => {
+    if (selectedEvent) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedEvent]);
 
   const filteredEvents = activeFilter === 'ALL' 
     ? EVENTS 
@@ -134,14 +211,13 @@ export default function PremiumEvents() {
                           <span className="text-gold font-thin-caps !text-[7px] block mb-1 opacity-60">ACCESS TYPE</span>
                           <span className="text-white text-[9px] tracking-widest uppercase">{event.details.access}</span>
                         </div>
-                        <div>
-                          <span className="text-gold font-thin-caps !text-[7px] block mb-1 opacity-60">INCLUDES</span>
-                          <span className="text-white text-[9px] tracking-widest uppercase leading-tight block">{event.details.includes}</span>
-                        </div>
                       </div>
                     )}
                     
-                    <button className="flex items-center gap-2 text-gold font-thin-caps group/btn !text-[8px]">
+                    <button 
+                      onClick={() => setSelectedEvent(event)}
+                      className="flex items-center gap-2 text-gold font-thin-caps group/btn !text-[8px]"
+                    >
                       VIEW PACKAGE 
                       <ChevronRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                     </button>
@@ -151,6 +227,134 @@ export default function PremiumEvents() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Event Details Modal */}
+        <AnimatePresence>
+          {selectedEvent && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12"
+            >
+              {/* Overlay */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedEvent(null)}
+                className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+              />
+
+              {/* Modal Content */}
+              <motion.div 
+                initial={{ y: 50, opacity: 0, scale: 0.95 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                exit={{ y: 30, opacity: 0, scale: 0.95 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                className="relative w-full max-w-6xl bg-[#0a0a0a] border border-white/10 overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+              >
+                {/* Close Button */}
+                <button 
+                  onClick={() => setSelectedEvent(null)}
+                  className="absolute top-6 right-6 z-50 p-2 bg-black/40 hover:bg-black/80 text-white/60 hover:text-white transition-colors rounded-full border border-white/5"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {/* Left Side: Image & Hero Info */}
+                <div className="w-full md:w-5/12 relative min-h-[300px] md:min-h-0">
+                  <img 
+                    src={selectedEvent.image} 
+                    alt={selectedEvent.title}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent" />
+                  
+                  <div className="absolute bottom-10 left-10 right-10">
+                    <span className="section-tag !text-gold mb-4 inline-block">{selectedEvent.category}</span>
+                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-6 italic leading-none">{selectedEvent.title}</h2>
+                    <div className="flex flex-wrap gap-6 opacity-60">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-gold" />
+                        <span className="text-[10px] tracking-[0.2em] text-white uppercase">{selectedEvent.date}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-gold" />
+                        <span className="text-[10px] tracking-[0.2em] text-white uppercase">{selectedEvent.location}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Side: Detailed Content */}
+                <div className="w-full md:w-7/12 p-8 md:p-12 overflow-y-auto bg-[#0a0a0a]">
+                  <div className="mb-12">
+                    <h4 className="text-gold font-thin-caps !text-[10px] mb-4 opacity-100">THE EXPERIENCE</h4>
+                    <p className="text-white/80 text-lg md:text-xl font-light leading-relaxed">
+                      {selectedEvent.description}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mb-16">
+                    <div>
+                      <h4 className="text-gold font-thin-caps !text-[10px] mb-6 flex items-center gap-2">
+                        <ShieldCheck className="w-3 h-3" />
+                        INCLUSIONS
+                      </h4>
+                      <ul className="space-y-4">
+                        {selectedEvent.details?.highlights?.map((item: string, idx: number) => (
+                          <li key={idx} className="flex items-start gap-3 group">
+                            <Star className="w-2.5 h-2.5 text-gold mt-1 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity" />
+                            <span className="text-white/60 text-[11px] uppercase tracking-widest leading-relaxed">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-gold font-thin-caps !text-[10px] mb-6 flex items-center gap-2">
+                        <Clock className="w-3 h-3" />
+                        SAMPLE ITINERARY
+                      </h4>
+                      <div className="space-y-6">
+                        {selectedEvent.details?.itinerary?.map((item: any, idx: number) => (
+                          <div key={idx} className="flex gap-4">
+                            <span className="text-gold font-mono text-[9px] tracking-tighter opacity-100 shrink-0 mt-0.5">
+                              {item.time}
+                            </span>
+                            <span className="text-white/60 text-[11px] uppercase tracking-widest leading-tight">
+                              {item.event}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-12 border-t border-white/5 flex flex-col sm:flex-row gap-8 items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 grayscale">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" alt="Concierge" className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <span className="text-white/40 text-[9px] tracking-[0.2em] block uppercase mb-1">DEDICATED CONCIERGE</span>
+                        <span className="text-white text-[11px] tracking-widest uppercase">ALEXANDRA VAUGHAN</span>
+                      </div>
+                    </div>
+                    
+                    <button className="btn-gold group min-w-[200px] !py-4 shadow-2xl shadow-gold/10">
+                      REQUEST ACCESS
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
