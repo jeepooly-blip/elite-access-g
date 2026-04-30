@@ -69,8 +69,8 @@ function App() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { name: 'Monaco', desc: 'CIRCUIT DE MONACO', img: 'https://images.unsplash.com/1504450758481-7338eba7524a?q=80&w=2070&auto=format&fit=crop' },
-                  { name: 'Abu Dhabi', desc: 'YAS MARINA GRAND PRIX', img: 'https://images.unsplash.com/1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop' },
+                  { name: 'Monaco', desc: 'CIRCUIT DE MONACO', img: 'https://images.unsplash.com/photo-1752884991193-f40e0018e483?q=80&w=2070&auto=format&fit=crop' },
+                  { name: 'Abu Dhabi', desc: 'YAS MARINA GRAND PRIX', img: 'https://images.unsplash.com/photo-1604914834278-075720506483?q=80&w=2070&auto=format&fit=crop' },
                   { name: 'Silverstone', desc: 'HOME OF BRITISH MOTORSPORT', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop' },
                   { name: 'Singapore', desc: 'NIGHT RACE CIRCUIT', img: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=2070&auto=format&fit=crop' }
                 ].map((dest, i) => (

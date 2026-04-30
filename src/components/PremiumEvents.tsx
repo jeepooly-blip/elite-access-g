@@ -12,11 +12,11 @@ const EVENTS = [
     title: "Monaco Grand Prix",
     date: "MAY 2024",
     location: "Monte Carlo, Monaco",
-    image: "https://images.unsplash.com/1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1752884991193-f40e0018e483?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/1601944177325-f8867652837f?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/photo-1752959812280-6271b5d6b143?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1604914834278-075720506483?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1728116454128-b47f93aeecde?auto=format&fit=crop&q=80&w=2000"
     ],
     featured: true,
     description: "The crown jewel of the F1 calendar. Experience the glamour of Monte Carlo from the most exclusive viewpoint in the world.",
@@ -43,11 +43,11 @@ const EVENTS = [
     title: "British Grand Prix",
     date: "JULY 2025",
     location: "Silverstone, UK",
-    image: "https://images.unsplash.com/1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/photo-1752959812280-6271b5d6b143?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1604914834278-075720506483?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1752959812280-6271b5d6b143?auto=format&fit=crop&q=80&w=2000"
     ],
     description: "The home of British motorsport. Silverstone delivers raw speed, passionate fans, and the most electric atmosphere on the entire F1 calendar.",
     details: {
@@ -73,11 +73,11 @@ const EVENTS = [
     title: "Singapore Night Race",
     date: "SEPT 2025",
     location: "Singapore",
-    image: "https://images.unsplash.com/1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1601944177325-f8867652837f?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/photo-1752884991193-f40e0018e483?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1752959812280-6271b5d6b143?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1728116454128-b47f93aeecde?auto=format&fit=crop&q=80&w=2000"
     ],
     description: "Formula 1 at night — the Singapore street circuit transforms into a breathtaking spectacle of speed, lights, and luxury under the stars.",
     details: {
@@ -103,11 +103,11 @@ const EVENTS = [
     title: "Abu Dhabi Grand Prix",
     date: "DEC 2025",
     location: "Yas Marina, UAE",
-    image: "https://images.unsplash.com/1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/photo-1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1752959812280-6271b5d6b143?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/photo-1604914834278-075720506483?auto=format&fit=crop&q=80&w=2000"
     ],
     description: "The season finale. Yas Marina Circuit at sunset and under the stars — where the championship is decided in the most glamorous setting in motorsport.",
     details: {
@@ -489,7 +489,7 @@ export default function PremiumEvents() {
                   <div className="pt-12 border-t border-white/5 flex flex-col sm:flex-row gap-8 items-center justify-between">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 grayscale">
-                        <img src="https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=200" alt="Concierge" className="w-full h-full object-cover" />
+                        <img src="https://images.unsplash.com/photo-1728116454128-b47f93aeecde?auto=format&fit=crop&q=80&w=200" alt="Concierge" className="w-full h-full object-cover" />
                       </div>
                       <div>
                         <span className="text-white/40 text-[9px] tracking-[0.2em] block uppercase mb-1">DEDICATED CONCIERGE</span>

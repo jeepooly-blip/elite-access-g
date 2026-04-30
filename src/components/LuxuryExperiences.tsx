@@ -6,7 +6,7 @@ const EXPERIENCES = [
     title: "Paddock Club Suite",
     subtitle: "FORMULA 1 HOSPITALITY",
     // F1 paddock/pit lane hospitality suite
-    image: "https://images.unsplash.com/1601944177325-f8867652837f?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1752959812280-6271b5d6b143?q=80&w=2070&auto=format&fit=crop",
     desc: "The most coveted vantage point in motorsport. Direct views over the pit lane with world-class hospitality."
   },
   {
@@ -20,7 +20,7 @@ const EXPERIENCES = [
     title: "Monaco Grand Prix",
     subtitle: "CIRCUIT DE MONACO",
     // Monaco harbour / F1 race atmosphere
-    image: "https://images.unsplash.com/1504450758481-7338eba7524a?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1752884991193-f40e0018e483?q=80&w=2070&auto=format&fit=crop",
     desc: "The crown jewel of the F1 calendar. Private terrace suites overlooking the legendary street circuit."
   }
 ];

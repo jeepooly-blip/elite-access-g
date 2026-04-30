@@ -7,13 +7,13 @@ const SLIDES = [
     title: "Precision meeting performance",
     subtitle: "PADDOCK CLUB™ EXCELLENCE",
     description: "The ultimate F1 experience. Unrivalled views, luxury hospitality and behind-the-scenes access.",
-    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000"
+    image: "https://images.unsplash.com/photo-1752884991193-f40e0018e483?auto=format&fit=crop&q=80&w=2000"
   },
   {
     title: "Speed, power, precision",
     subtitle: "BRITISH GRAND PRIX",
     description: "Silverstone — the spiritual home of Formula 1. Experience race weekend from the most exclusive hospitality suites on the grid.",
-    image: "https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000"
+    image: "https://images.unsplash.com/photo-1728116454128-b47f93aeecde?auto=format&fit=crop&q=80&w=2000"
   },
   {
     title: "The pinnacle of private travel",
@@ -25,7 +25,7 @@ const SLIDES = [
     title: "The season finale awaits",
     subtitle: "ABU DHABI GRAND PRIX",
     description: "Yas Marina Circuit under the lights — where champions are crowned. Secure your Paddock Club suite for the most spectacular race weekend of the year.",
-    image: "https://images.unsplash.com/1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=2000"
+    image: "https://images.unsplash.com/photo-1752959812280-6271b5d6b143?auto=format&fit=crop&q=80&w=2000"
   }
 ];
 
