@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useWishlist } from '../lib/WishlistContext';
 import { useAuth } from '../lib/AuthContext';
 import ProfilePortal from './ProfilePortal';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -97,6 +98,9 @@ export default function Navbar() {
                 </span>
               )}
             </button>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
 
             {/* Divider — desktop only */}
             <div className="h-4 w-px bg-white/20 hidden lg:block" />

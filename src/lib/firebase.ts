@@ -4,6 +4,8 @@ import {
   getFirestore, 
   collection, 
   addDoc, 
+  updateDoc,
+  deleteDoc,
   serverTimestamp, 
   query, 
   where, 
@@ -11,7 +13,8 @@ import {
   doc, 
   getDoc, 
   setDoc,
-  orderBy
+  orderBy,
+  onSnapshot
 } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
