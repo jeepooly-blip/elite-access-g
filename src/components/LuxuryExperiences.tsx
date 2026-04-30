@@ -6,7 +6,7 @@ const EXPERIENCES = [
     title: "Paddock Club Suite",
     subtitle: "FORMULA 1 HOSPITALITY",
     // F1 paddock/pit lane hospitality suite
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/1601944177325-f8867652837f?q=80&w=2070&auto=format&fit=crop",
     desc: "The most coveted vantage point in motorsport. Direct views over the pit lane with world-class hospitality."
   },
   {
@@ -20,7 +20,7 @@ const EXPERIENCES = [
     title: "Monaco Grand Prix",
     subtitle: "CIRCUIT DE MONACO",
     // Monaco harbour / F1 race atmosphere
-    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/1504450758481-7338eba7524a?q=80&w=2070&auto=format&fit=crop",
     desc: "The crown jewel of the F1 calendar. Private terrace suites overlooking the legendary street circuit."
   }
 ];
@@ -31,7 +31,7 @@ export default function LuxuryExperiences() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <span className="section-tag">ELITE ASSETS</span>
-          <h2 className="section-title">Beyond <span className="text-gold">the Race</span></h2>
+          <h2 className="section-title">The Complete <span className="text-gold">F1 Experience</span></h2>
           <p className="text-zinc-gray uppercase tracking-widest text-[10px] max-w-xl mx-auto leading-relaxed mt-6 opacity-60">
             A complete Grand Prix experience — from private jets and yacht berths to paddock suites and after-race dinners.
           </p>

@@ -51,7 +51,7 @@ export default function HospitalityPackages() {
           >
             <div className="aspect-[4/5] relative overflow-hidden border border-gold/10">
               <img 
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=2000" 
+                src="https://images.unsplash.com/1601944177325-f8867652837f?auto=format&fit=crop&q=80&w=2000" 
                 alt="Paddock Club" 
                 className="w-full h-full object-cover transition-all duration-1000 scale-105 hover:scale-100"
                 referrerPolicy="no-referrer"

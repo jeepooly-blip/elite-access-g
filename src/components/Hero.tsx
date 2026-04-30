@@ -10,10 +10,10 @@ const SLIDES = [
     image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000"
   },
   {
-    title: "Tennis at its most prestigious",
-    subtitle: "WIMBLEDON VIP ACCESS",
-    description: "Experience the pinnacle of grass-court tennis with exclusive hospitality in the heart of SW19.",
-    image: "https://images.unsplash.com/photo-1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000"
+    title: "Speed, power, precision",
+    subtitle: "BRITISH GRAND PRIX",
+    description: "Silverstone — the spiritual home of Formula 1. Experience race weekend from the most exclusive hospitality suites on the grid.",
+    image: "https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000"
   },
   {
     title: "The pinnacle of private travel",
@@ -22,10 +22,10 @@ const SLIDES = [
     image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&q=80&w=2000"
   },
   {
-    title: "High Fashion, Higher Stakes",
-    subtitle: "EXCLUSIVE ACCESS GALA",
-    description: "Front row at the world's most coveted runways and entry to the season's most exclusive social gatherings.",
-    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2000"
+    title: "The season finale awaits",
+    subtitle: "ABU DHABI GRAND PRIX",
+    description: "Yas Marina Circuit under the lights — where champions are crowned. Secure your Paddock Club suite for the most spectacular race weekend of the year.",
+    image: "https://images.unsplash.com/1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=2000"
   }
 ];
 

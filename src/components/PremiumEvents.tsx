@@ -12,11 +12,11 @@ const EVENTS = [
     title: "Monaco Grand Prix",
     date: "MAY 2024",
     location: "Monte Carlo, Monaco",
-    image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000",
+    image: "https://images.unsplash.com/1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1603522221770-07e163b2faff?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/1601944177325-f8867652837f?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000"
     ],
     featured: true,
     description: "The crown jewel of the F1 calendar. Experience the glamour of Monte Carlo from the most exclusive viewpoint in the world.",
@@ -38,92 +38,92 @@ const EVENTS = [
     }
   },
   {
-    category: "ROYAL ENCLOSURE",
-    filterCategory: "SPORT",
-    title: "Royal Ascot",
-    date: "JUNE 2024",
-    location: "Ascot, UK",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=2000",
+    category: "PADDOCK CLUB™",
+    filterCategory: "FORMULA 1",
+    title: "British Grand Prix",
+    date: "JULY 2025",
+    location: "Silverstone, UK",
+    image: "https://images.unsplash.com/1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/photo-1549413247-920400f074d4?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1595111812061-0b336a18d18e?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1484196148391-f8522ec389bc?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=2000"
     ],
-    description: "Step into the inner sanctum of British high society at the world's most famous race meeting.",
+    description: "The home of British motorsport. Silverstone delivers raw speed, passionate fans, and the most electric atmosphere on the entire F1 calendar.",
     details: {
-      access: "Private Box Tier 1",
-      includes: "Champagne Reception, 5-Course Lunch, Royal Procession View",
+      access: "Paddock Club Suite",
+      includes: "Pit Lane Walk, Gourmet Buffet, Open Bar, Driver Appearances",
       highlights: [
-        "Uninterrupted views of the Royal Procession",
-        "Interaction with the finest equine talent",
-        "Traditional Afternoon Tea service",
-        "Dedicated VIP hostess service"
+        "Prime views over the legendary Copse and Maggotts corners",
+        "Exclusive pit lane walk before race day",
+        "Team briefings and garage tours",
+        "All-day premium open bar with Ferrari Trento"
       ],
       itinerary: [
-        { time: "10:30", event: "Arrival & Champagne Reception" },
-        { time: "12:30", event: "Royal Procession Viewing" },
-        { time: "14:00", event: "First Race - Premium Grandstand Access" },
-        { time: "16:30", event: "Afternoon Tea & Prizegiving" }
+        { time: "09:30", event: "Paddock Club Opens - Morning Briefing" },
+        { time: "11:00", event: "Pit Lane Walk & Team Photo Opportunities" },
+        { time: "13:00", event: "Gourmet Luncheon with Fine Wines" },
+        { time: "15:00", event: "Race Start — Direct Grandstand Viewing" }
       ]
     }
   },
   {
-    category: "CENTER COURT",
-    filterCategory: "SPORT",
-    title: "Wimbledon Finals",
-    date: "JULY 2024",
-    location: "London, UK",
-    image: "https://images.unsplash.com/photo-1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
+    category: "MARINA BAY SUITE",
+    filterCategory: "FORMULA 1",
+    title: "Singapore Night Race",
+    date: "SEPT 2025",
+    location: "Singapore",
+    image: "https://images.unsplash.com/1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1592709823125-a191f07a2a5e?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1601944177325-f8867652837f?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=2000"
     ],
-    description: "Witness history in the making on the grass courts of SW19. The ultimate test of skill and elegance.",
+    description: "Formula 1 at night — the Singapore street circuit transforms into a breathtaking spectacle of speed, lights, and luxury under the stars.",
     details: {
-      access: "Debenture Seats",
-      includes: "The Gatsby Club Entry, Personalized Gift, Concierge Service",
+      access: "Paddock Club Suite",
+      includes: "Night Race Views, Champagne, Pit Lane Access, Concierge",
       highlights: [
-        "Reserved seating on Center Court (Debenture)",
-        "Gatsby Club hospitality - minutes from the gates",
-        "Champagne breakfast upon arrival",
-        "Official Wimbledon programs and cushions"
+        "Illuminated track views from elevated premium suite",
+        "Exclusive after-dark pit lane walk",
+        "Pre-race gourmet dinner with fine Singapore cuisine",
+        "Dedicated suite host and open premium bar"
       ],
       itinerary: [
-        { time: "10:00", event: "Gatsby Club Reception - Live Jazz" },
-        { time: "11:30", event: "Pre-match 3-Course Luncheon" },
-        { time: "13:30", event: "Center Court Seats - Final Begins" },
-        { time: "17:00", event: "Traditional Strawberries & Cream Service" }
+        { time: "17:00", event: "Suite Opens — Welcome Cocktails" },
+        { time: "18:30", event: "Gourmet Dinner Service Begins" },
+        { time: "20:00", event: "Night Race Start — Track Illuminated" },
+        { time: "22:30", event: "Post-Race Celebration & Driver Parade" }
       ]
     }
   },
   {
-    category: "GALA DINNER",
-    filterCategory: "CULTURE",
-    title: "The Met Gala",
-    date: "MAY 2024",
-    location: "New York, USA",
-    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2000",
+    category: "PADDOCK CLUB™",
+    filterCategory: "FORMULA 1",
+    title: "Abu Dhabi Grand Prix",
+    date: "DEC 2025",
+    location: "Yas Marina, UAE",
+    image: "https://images.unsplash.com/1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
     images: [
-      "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=2000",
-      "https://images.unsplash.com/photo-1514525253361-bee8a48790c3?auto=format&fit=crop&q=80&w=2000"
+      "https://images.unsplash.com/1622279457486-62dcc4a4953f?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=2000",
+      "https://images.unsplash.com/1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=2000"
     ],
-    description: "Fashion's biggest night. Join the elite for an evening of unparalleled creativity and cultural impact.",
+    description: "The season finale. Yas Marina Circuit at sunset and under the stars — where the championship is decided in the most glamorous setting in motorsport.",
     details: {
-      access: "Table Invitation",
-      includes: "Red Carpet Entry, Museum Private Tour, Star-studded Dinner",
+      access: "Paddock Club Suite",
+      includes: "Sunset Terrace, Gourmet Dinner, Open Bar, Podium Access",
       highlights: [
-        "Upper East Side pre-party access",
-        "Global press walk on the iconic steps",
-        "Private viewing of the new exhibition",
-        "Intimate dinner table with industry leaders"
+        "Suite overlooks the pit lane and Yas Marina harbour",
+        "Exclusive sunset champagne reception on the terrace",
+        "Post-race access to the podium celebration zone",
+        "Team principal meet-and-greet for VIP guests"
       ],
       itinerary: [
-        { time: "18:00", event: "Red Carpet Arrivals Commence" },
-        { time: "19:30", event: "Cocktails & Exhibition Preview" },
-        { time: "20:30", event: "The Costume Institute Gala Dinner" },
-        { time: "23:00", event: "Official After-Party" }
+        { time: "14:00", event: "Suite Opens — Poolside Welcome Reception" },
+        { time: "16:00", event: "Qualifying Review & Team Briefing" },
+        { time: "17:00", event: "Race Start — Sunset over Yas Marina" },
+        { time: "19:30", event: "Podium Celebration & After-Race Dinner" }
       ]
     }
   }
@@ -225,7 +225,7 @@ export default function PremiumEvents() {
             </div>
 
             <div className="flex flex-wrap gap-2">
-               {['ALL', 'FORMULA 1', 'SPORT', 'CULTURE'].map((cat) => (
+               {['ALL', 'FORMULA 1', 'PADDOCK CLUB', 'NIGHT RACE'].map((cat) => (
                  <button
                    key={cat}
                    onClick={() => setActiveFilter(cat)}
@@ -489,7 +489,7 @@ export default function PremiumEvents() {
                   <div className="pt-12 border-t border-white/5 flex flex-col sm:flex-row gap-8 items-center justify-between">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 grayscale">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" alt="Concierge" className="w-full h-full object-cover" />
+                        <img src="https://images.unsplash.com/1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=200" alt="Concierge" className="w-full h-full object-cover" />
                       </div>
                       <div>
                         <span className="text-white/40 text-[9px] tracking-[0.2em] block uppercase mb-1">DEDICATED CONCIERGE</span>
